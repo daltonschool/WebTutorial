@@ -2,37 +2,44 @@ var score=0;
 var answered = 0;
 var books = [
     {
-        img: "images/bookcovers/10-please-love-me-somebody-maud-johnson.jpg",
+        img: "img/bookcovers/10-please-love-me-somebody-maud-johnson.jpg",
+        question: "Which is the title of this romance novel?",
         options: ["Please Love Me...Somebody", "Boarding School Blues", "Forgive or Forget?","Real Love"],
         answer: "Please Love Me...Somebody"
     },
      {
-        img: "images/bookcovers/8-special-girl-dorothy-francis.jpg",
+        img: "img/bookcovers/8-special-girl-dorothy-francis.jpg",
+        question: "How about this American Teenage Romance novel?",
         options: ["Am I Alone?", "Special Girl", "Worthy Of Love","When To Say Yes"],
         answer: "Special Girl"
     },
     {
-        img: "images/bookcovers/kiis-me-creep.png",
-        options: ["Growing Up", "Average Boy", "Kiss Me Creep","Much Too Young"],
-        answer: "Kiss Me Creep"
+        img: "img/bookcovers/kiis-me-creep.png",
+        question: "What title goes with this book of young love?",
+        options: ["Growing Up", "Average Boy", "Kiss Me, Creep","Much Too Young"],
+        answer: "Kiss Me, Creep"
     },
     {
-        img: "images/bookcovers/crosswinds-15-lighten-up-jennifer-kathlyn-lampi.jpg",
+        img: "img/bookcovers/crosswinds-15-lighten-up-jennifer-kathlyn-lampi.jpg",
+        question: "What about this book of broken friendship?",
         options: ["We're Not Friends", "Lighten Up, Jennifer", "Love Me Not", "The End Of Us"],
         answer: "Lighten Up, Jennifer"
     },
     {
-        img: "images/bookcovers/wildfire-10-ive-got-a-crush-on-you-carol-stanley.jpg",
+        img: "img/bookcovers/wildfire-10-ive-got-a-crush-on-you-carol-stanley.jpg",
+        question: "What about Carol Stanley's novel?",
         options: ["Teach Me, Mister", "Ever Lasting", "Jo & Joe", "I've Got A Crush On You"],
         answer: "I've Got A Crush On You"
     },
     {
-        img: "images/bookcovers/caprice_27tooyoungtoknowmargaretmscariano_thumb.jpg",
+        img: "img/bookcovers/caprice_27tooyoungtoknowmargaretmscariano_thumb.jpg",
+        question: "What's the title of this book about growing up?",
         options: ["When I'm A Woman...", "Lacing Up", "Too Young To Know", "High School Dreams"],
         answer: "Too Young To Know"
     },
     {
-        img: "images/bookcovers/171-write-on-dorothy-francis.jpg",
+        img: "img/bookcovers/171-write-on-dorothy-francis.jpg",
+        question: "And lastly, what about this will-the-won't-they story?",
         options: ["Make It Happen", "Too Smart For A Girl?", "Just Friends", "Write On!"],
         answer: "Write On!"
     }
@@ -60,10 +67,11 @@ var setup = function() {
 		    + '<div class="blackout"></div>'
 		    + '</div>'
 		    + '<div class="col-md-6 col-sm-6 col-xs-6">'
+		    + '<div class="panel"><h2>' + val.question + '</h2></div>'
 		    + '<ul class="options" id="' + key + '">'
 		    + options
 		    + '</ul>'
-		    + '<div class="result_container off">'
+		    + '<div class="result_container panel off">'
 		    + '<div class="result"></div>'
 		    + '<div class="score_container"></div>' 
 		    + '</div>'
@@ -71,7 +79,7 @@ var setup = function() {
 		    + '</div>';
 	})
 
-	quiz += '<div id="total_result"></div>';
+	quiz += '<div class="jumbotron off" id="total_result"></div>';
 
 	// Put quiz on the page
 	$("#quiz").html(quiz);
@@ -104,16 +112,23 @@ var selectionMade = (function() {
 		this.style.background = "#ee9999";
 		this.style.color = "#994444";
 		this.style.border = "6px solid #bb6666";
-		$(result).html("<h3>Incorrect!</h3>");
+		$(result).html('<div class="panel"><h3>Sorry! The answer is...</h3><h2>' + answer + '</h2></div>');
 	}
 	answered++;
 
-	$(points).html("<h4>Score: " + score + " out of " + answered + "</h4>");
+	$(points).html("<h4>" + score + " out of " + answered + "</h4>");
 
 	// Check if done with quiz
 	if (answered == books.length) {
+		var comment;
+		var percent = (score/answered) * 100
+		if (percent > 85 ) {
+			comment = "Good job!";
+		} else {
+			comment = "Time to brush up on your romance novels!"
+		}
 		document.getElementById("total_result").style.opacity = 1;
-	    document.getElementById("total_result").innerHTML += "<h1>Total: " + score + " out of " + answered + "</h1>";
+	  document.getElementById("total_result").innerHTML += "<h1>You got " + score + " out of " + answered + "!</h1><h3>" + comment + "</h3>";
 
 	}
 })

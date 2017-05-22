@@ -85,4 +85,8 @@ ul {
 	transition-timing-function: ease-out;
 }
 
+#total_result {
+	margin-bottom: 200px;
+	transition: opacity 2s ease-out;
+}
 
